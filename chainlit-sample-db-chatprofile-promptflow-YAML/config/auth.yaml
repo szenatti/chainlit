@@ -1,0 +1,74 @@
+# Authentication Configuration
+# This file defines authentication settings and user roles
+
+auth:
+  enabled: true
+  auth_type: "password"  # Options: password, oauth, ldap, custom
+  session_timeout: 3600  # Session timeout in seconds
+  require_auth_for_all_profiles: false
+
+# User definitions for password authentication
+users:
+  admin:
+    password: "admin123"  # In production, use hashed passwords
+    role: "admin"
+    metadata:
+      full_name: "Administrator"
+      email: "admin@example.com"
+      permissions:
+        - "view_all_profiles"
+        - "manage_users"
+        - "access_admin_features"
+    enabled: true
+    
+  user:
+    password: "user123"
+    role: "user"
+    metadata:
+      full_name: "Standard User"
+      email: "user@example.com"
+      permissions:
+        - "view_standard_profiles"
+    enabled: true
+    
+  demo:
+    password: "demo123"
+    role: "user"
+    metadata:
+      full_name: "Demo User"
+      email: "demo@example.com"
+      permissions:
+        - "view_standard_profiles"
+    enabled: true
+
+# Role-based access control
+roles:
+  admin:
+    description: "Administrator with full access"
+    permissions:
+      - "view_all_profiles"
+      - "manage_users"
+      - "access_admin_features"
+      - "access_technical_profile"
+      - "access_business_profile"
+    profile_access:
+      - "*"  # Access to all profiles
+      
+  user:
+    description: "Standard user with limited access"
+    permissions:
+      - "view_standard_profiles"
+    profile_access:
+      - "Assistant"
+      - "Creative"
+      - "Analytical"
+      - "PromptFlow-Assistant"
+      - "Document-QA"
+
+# Security settings
+security:
+  password_min_length: 6
+  enable_rate_limiting: true
+  max_login_attempts: 5
+  lockout_duration: 300  # seconds
+  session_token_expiry: 86400  # 24 hours 

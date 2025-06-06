@@ -1,0 +1,78 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+environment:
+  python_requirements_txt: requirements.txt
+inputs:
+  question:
+    type: string
+    default: ""
+  document_content:
+    type: string
+    default: ""
+  chat_history:
+    type: list
+    default: []
+outputs:
+  answer:
+    type: string
+    reference: ${generate_answer.output}
+  relevance_score:
+    type: string
+    reference: ${calculate_relevance.output}
+  sources:
+    type: string
+    reference: ${extract_sources.output}
+nodes:
+- name: preprocess_document
+  type: python
+  source:
+    type: code
+    path: preprocess_document.py
+  inputs:
+    document_content: ${inputs.document_content}
+    question: ${inputs.question}
+  use_variants: false
+- name: extract_context
+  type: python
+  source:
+    type: code
+    path: extract_context.py
+  inputs:
+    processed_doc: ${preprocess_document.output}
+    question: ${inputs.question}
+    chat_history: ${inputs.chat_history}
+  use_variants: false
+- name: generate_answer
+  type: llm
+  source:
+    type: code
+    path: qa_prompt.jinja2
+  inputs:
+    max_tokens: 1500
+    temperature: 0.3
+    context: ${extract_context.context}
+    question: ${inputs.question}
+    chat_history: ${extract_context.formatted_history}
+  provider: AzureOpenAI
+  connection: Default_AzureOpenAI
+  api: chat
+  use_variants: false
+- name: calculate_relevance
+  type: python
+  source:
+    type: code
+    path: calculate_relevance.py
+  inputs:
+    question: ${inputs.question}
+    answer: ${generate_answer.output}
+    context: ${extract_context.context}
+  use_variants: false
+- name: extract_sources
+  type: python
+  source:
+    type: code
+    path: extract_sources.py
+  inputs:
+    processed_doc: ${preprocess_document.output}
+    context: ${extract_context.context}
+    answer: ${generate_answer.output}
+  use_variants: false 

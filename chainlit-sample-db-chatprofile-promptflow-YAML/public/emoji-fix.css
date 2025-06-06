@@ -1,0 +1,34 @@
+/* Ensure emoji fonts are properly rendered for chat profile icons */
+.MuiAvatar-root,
+.MuiListItemIcon-root,
+.MuiChip-icon,
+[class*="ChatProfile"],
+[class*="avatar"] {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", "Android Emoji", "EmojiSymbols", sans-serif !important;
+    font-style: normal !important;
+    font-variant: normal !important;
+    text-rendering: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+/* Specific fix for chat profile icons */
+.MuiListItemIcon-root .MuiSvgIcon-root,
+.MuiAvatar-root .MuiSvgIcon-root {
+    font-size: 1.2em !important;
+    line-height: 1 !important;
+}
+
+/* Ensure emoji characters display properly */
+.emoji,
+[data-testid*="emoji"],
+[aria-label*="emoji"] {
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+    font-size: inherit !important;
+    vertical-align: baseline !important;
+    display: inline !important;
+}
+
+/* Force emoji rendering for any text content that might contain emojis */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+} 

@@ -1,0 +1,107 @@
+# Chat Profiles Configuration
+# This file defines all available chat profiles and their configurations
+
+profiles:
+  Assistant:
+    name: "Assistant"
+    markdown_description: "**General AI Assistant** - Balanced and helpful responses for everyday tasks and questions."
+    icon: "/public/icons/robot.svg"
+    temperature: 0.7
+    system_prompt: "You are a helpful AI assistant. Provide balanced, informative, and friendly responses to help users with their questions and tasks."
+    enabled: true
+    requires_role: null  # Available to all users
+    model_settings:
+      max_tokens: 1000
+      top_p: 1.0
+    
+  Creative:
+    name: "Creative"
+    markdown_description: "**Creative Writer** - Enhanced creativity for storytelling, brainstorming, and artistic content."
+    icon: "/public/icons/creative.svg"
+    temperature: 0.9
+    system_prompt: "You are a creative AI assistant with enhanced imagination and artistic flair. Focus on storytelling, brainstorming, creative writing, and artistic content. Be expressive, innovative, and inspire creativity in your responses."
+    enabled: true
+    requires_role: null
+    model_settings:
+      max_tokens: 1500
+      top_p: 0.95
+    
+  Analytical:
+    name: "Analytical"
+    markdown_description: "**Data Analyst** - Logical and structured responses for analysis, research, and problem-solving."
+    icon: "/public/icons/analytical.svg"
+    temperature: 0.3
+    system_prompt: "You are an analytical AI assistant focused on logical reasoning, data analysis, and structured problem-solving. Provide clear, methodical, and evidence-based responses. Break down complex problems into manageable steps."
+    enabled: true
+    requires_role: null
+    model_settings:
+      max_tokens: 1200
+      top_p: 0.9
+    
+  Technical:
+    name: "Technical"
+    markdown_description: "**Technical Expert** - Advanced technical discussions, coding, and system architecture."
+    icon: "/public/icons/technical.svg"
+    temperature: 0.5
+    system_prompt: "You are a technical expert AI assistant specializing in software development, system architecture, and technical problem-solving. Provide detailed technical explanations, code examples, and best practices."
+    enabled: true
+    requires_role: "admin"
+    model_settings:
+      max_tokens: 2000
+      top_p: 0.9
+    
+  Business:
+    name: "Business"
+    markdown_description: "**Business Consultant** - Strategic business advice, market analysis, and professional guidance."
+    icon: "/public/icons/business.svg"
+    temperature: 0.6
+    system_prompt: "You are a business consultant AI assistant with expertise in strategy, market analysis, and professional guidance. Focus on business insights, strategic thinking, and professional communication."
+    enabled: true
+    requires_role: "admin"
+    model_settings:
+      max_tokens: 1500
+      top_p: 0.95
+
+  # Promptflow-enhanced profiles
+  PromptFlow-Assistant:
+    name: "PromptFlow-Assistant"
+    markdown_description: "**Promptflow Chat Assistant** - Advanced chat responses using Azure Promptflow orchestration."
+    icon: "/public/icons/promptflow.svg"
+    temperature: 0.7
+    system_prompt: "You are an advanced AI assistant powered by Azure Promptflow. You provide enhanced conversational experiences with sophisticated prompt engineering and flow orchestration."
+    enabled: true
+    requires_role: null
+    requires_promptflow: true
+    flow_config:
+      flow_path: "promptflows/chat_assistant"
+      flow_type: "chat_assistant"
+    model_settings:
+      max_tokens: 1000
+      top_p: 1.0
+    
+  Document-QA:
+    name: "Document-QA"
+    markdown_description: "**Document Q&A** - Upload documents and ask questions using Promptflow document analysis."
+    icon: "/public/icons/document.svg"
+    temperature: 0.3
+    system_prompt: "You are a document analysis assistant powered by Azure Promptflow. You help users analyze documents and answer questions based on document content with detailed citations and relevance scoring."
+    enabled: true
+    requires_role: null
+    requires_promptflow: true
+    supports_file_upload: true
+    flow_config:
+      flow_path: "promptflows/document_qa"
+      flow_type: "document_qa"
+    model_settings:
+      max_tokens: 1500
+      top_p: 0.9
+
+# Global settings
+settings:
+  default_profile: "Assistant"
+  enable_profile_switching: true
+  require_authentication: true
+  default_model_settings:
+    temperature: 0.7
+    max_tokens: 1000
+    top_p: 1.0 

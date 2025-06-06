@@ -1,0 +1,250 @@
+# Example Custom Profiles Configuration
+# This file shows how to create custom profiles for specific use cases
+
+profiles:
+  # Medical Assistant Profile
+  Medical:
+    name: "Medical"
+    markdown_description: "**Medical Assistant** - Specialized medical knowledge for healthcare professionals and patients."
+    icon: "/public/icons/medical.svg"
+    temperature: 0.3
+    system_prompt: "You are a medical AI assistant with extensive knowledge of medicine, anatomy, diseases, treatments, and healthcare. Provide accurate, evidence-based medical information. Always remind users to consult with healthcare professionals for personal medical advice."
+    enabled: true
+    requires_role: "medical_professional"
+    model_settings:
+      max_tokens: 2000
+      top_p: 0.9
+
+  # Legal Assistant Profile  
+  Legal:
+    name: "Legal"
+    markdown_description: "**Legal Assistant** - Legal research and document analysis for legal professionals."
+    icon: "/public/icons/legal.svg"
+    temperature: 0.2
+    system_prompt: "You are a legal AI assistant specializing in legal research, case analysis, and document review. Provide accurate legal information and analysis while always reminding users that this is not legal advice and they should consult with qualified attorneys."
+    enabled: true
+    requires_role: "legal_professional"
+    model_settings:
+      max_tokens: 2500
+      top_p: 0.85
+
+  # Education Tutor Profile
+  Tutor:
+    name: "Tutor"
+    markdown_description: "**Educational Tutor** - Personalized learning assistance for students and educators."
+    icon: "/public/icons/education.svg"
+    temperature: 0.6
+    system_prompt: "You are an educational AI tutor. Help students learn by providing clear explanations, examples, and step-by-step guidance. Adapt your teaching style to the student's level and encourage critical thinking."
+    enabled: true
+    requires_role: null  # Available to all users
+    model_settings:
+      max_tokens: 1500
+      top_p: 0.95
+
+  # Financial Advisor Profile
+  Financial:
+    name: "Financial"
+    markdown_description: "**Financial Advisor** - Financial planning and investment guidance."
+    icon: "/public/icons/finance.svg"
+    temperature: 0.4
+    system_prompt: "You are a financial AI advisor with expertise in personal finance, investment strategies, and market analysis. Provide educational financial information while always noting that this is not personalized financial advice."
+    enabled: true
+    requires_role: "financial_advisor"
+    model_settings:
+      max_tokens: 1800
+      top_p: 0.9
+
+  # Customer Support Profile
+  CustomerSupport:
+    name: "CustomerSupport"
+    markdown_description: "**Customer Support** - Friendly and helpful customer service assistant."
+    icon: "/public/icons/support.svg"
+    temperature: 0.5
+    system_prompt: "You are a customer support AI assistant. Be friendly, helpful, and professional. Focus on solving customer problems, providing clear instructions, and escalating complex issues when necessary."
+    enabled: true
+    requires_role: "support_agent"
+    model_settings:
+      max_tokens: 1200
+      top_p: 0.9
+
+  # Marketing Assistant Profile
+  Marketing:
+    name: "Marketing"
+    markdown_description: "**Marketing Assistant** - Creative marketing and content strategy support."
+    icon: "/public/icons/marketing.svg"
+    temperature: 0.8
+    system_prompt: "You are a marketing AI assistant specializing in content creation, campaign strategy, and brand messaging. Be creative, strategic, and data-driven in your recommendations."
+    enabled: true
+    requires_role: "marketing_team"
+    model_settings:
+      max_tokens: 1800
+      top_p: 0.95
+
+# Custom Promptflow Profiles
+promptflow_profiles:
+  # Research Assistant with Custom Flow
+  Research-Assistant:
+    name: "Research-Assistant"
+    markdown_description: "**Research Assistant** - Advanced research capabilities with source verification and citation management."
+    icon: "/public/icons/research.svg"
+    temperature: 0.4
+    system_prompt: "You are a research AI assistant specializing in academic research, source verification, and comprehensive analysis. Provide well-researched, cited responses."
+    enabled: true
+    requires_role: "researcher"
+    requires_promptflow: true
+    flow_config:
+      flow_path: "promptflows/research_assistant"
+      flow_type: "research_assistant"
+    model_settings:
+      max_tokens: 2000
+      top_p: 0.9
+
+  # Code Review Assistant
+  Code-Reviewer:
+    name: "Code-Reviewer"
+    markdown_description: "**Code Reviewer** - Automated code review and analysis with best practices recommendations."
+    icon: "/public/icons/code_review.svg"
+    temperature: 0.3
+    system_prompt: "You are a code review AI assistant specializing in code analysis, security review, and best practices. Provide detailed code reviews with actionable recommendations."
+    enabled: true
+    requires_role: "developer"
+    requires_promptflow: true
+    supports_file_upload: true
+    flow_config:
+      flow_path: "promptflows/code_reviewer"
+      flow_type: "code_review"
+    model_settings:
+      max_tokens: 2500
+      top_p: 0.85
+
+  # Data Analysis Assistant
+  Data-Analyst:
+    name: "Data-Analyst"
+    markdown_description: "**Data Analyst** - Advanced data analysis with visualization and insights generation."
+    icon: "/public/icons/data_analysis.svg"
+    temperature: 0.3
+    system_prompt: "You are a data analysis AI assistant. Help users analyze datasets, create visualizations, and generate actionable insights from data."
+    enabled: true
+    requires_role: "data_analyst"
+    requires_promptflow: true
+    supports_file_upload: true
+    flow_config:
+      flow_path: "promptflows/data_analysis"
+      flow_type: "data_analysis"
+    model_settings:
+      max_tokens: 2000
+      top_p: 0.9
+
+# Additional roles for custom profiles
+additional_roles:
+  medical_professional:
+    description: "Medical professional with healthcare expertise"
+    permissions:
+      - "view_standard_profiles"
+      - "access_medical_profile"
+    profile_access:
+      - "Assistant"
+      - "Medical"
+      - "Research-Assistant"
+
+  legal_professional:
+    description: "Legal professional with law expertise"
+    permissions:
+      - "view_standard_profiles"
+      - "access_legal_profile"
+    profile_access:
+      - "Assistant"
+      - "Legal"
+      - "Research-Assistant"
+
+  financial_advisor:
+    description: "Financial advisor with investment expertise"
+    permissions:
+      - "view_standard_profiles"
+      - "access_financial_profile"
+    profile_access:
+      - "Assistant"
+      - "Financial"
+      - "Data-Analyst"
+
+  support_agent:
+    description: "Customer support agent"
+    permissions:
+      - "view_standard_profiles"
+      - "access_support_profile"
+    profile_access:
+      - "Assistant"
+      - "CustomerSupport"
+
+  marketing_team:
+    description: "Marketing team member"
+    permissions:
+      - "view_standard_profiles"
+      - "access_marketing_profile"
+    profile_access:
+      - "Assistant"
+      - "Creative"
+      - "Marketing"
+
+  researcher:
+    description: "Research professional"
+    permissions:
+      - "view_standard_profiles"
+      - "access_research_tools"
+    profile_access:
+      - "Assistant"
+      - "Analytical"
+      - "Research-Assistant"
+
+  developer:
+    description: "Software developer"
+    permissions:
+      - "view_standard_profiles"
+      - "access_development_tools"
+    profile_access:
+      - "Assistant"
+      - "Technical"
+      - "Code-Reviewer"
+
+  data_analyst:
+    description: "Data analyst professional"
+    permissions:
+      - "view_standard_profiles"
+      - "access_data_tools"
+    profile_access:
+      - "Assistant"
+      - "Analytical"
+      - "Data-Analyst"
+
+# Settings for custom profiles
+settings:
+  default_profile: "Assistant"
+  enable_profile_switching: true
+  require_authentication: true
+  custom_icons_path: "/public/icons/custom/"
+  default_model_settings:
+    temperature: 0.7
+    max_tokens: 1000
+    top_p: 1.0
+
+# Usage instructions
+usage_instructions: |
+  To use these custom profiles:
+  
+  1. Copy the profiles you want to your main config/profiles.yaml
+  2. Add the additional_roles to your config/auth.yaml
+  3. Create users with the appropriate roles
+  4. Add custom icons to public/icons/ directory
+  5. For promptflow profiles, create the corresponding flow directories
+  
+  Example user with custom role:
+  ```yaml
+  users:
+    doctor:
+      password: "medical123"
+      role: "medical_professional"
+      metadata:
+        full_name: "Dr. Smith"
+        department: "Cardiology"
+      enabled: true
+  ``` 

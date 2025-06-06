@@ -1,0 +1,135 @@
+# Promptflow Configuration
+# This file defines promptflow flows and their configurations
+
+promptflows:
+  chat_assistant:
+    name: "Chat Assistant Flow"
+    description: "Advanced chat responses using Azure Promptflow orchestration"
+    flow_path: "promptflows/chat_assistant"
+    flow_file: "flow.dag.yaml"
+    enabled: true
+    inputs:
+      - name: "chat_history"
+        type: "list"
+        default: []
+        required: false
+      - name: "question"
+        type: "string"
+        default: ""
+        required: true
+      - name: "profile_name"
+        type: "string"
+        default: "Assistant"
+        required: true
+    outputs:
+      - name: "answer"
+        type: "string"
+        description: "Generated response"
+      - name: "citations"
+        type: "string"
+        description: "Formatted response with citations"
+    nodes:
+      prepare_prompt:
+        type: "python"
+        file: "prepare_prompt.py"
+        function: "prepare_prompt"
+      llm_response:
+        type: "llm"
+        template: "llm_prompt.jinja2"
+        provider: "AzureOpenAI"
+        connection: "Default_AzureOpenAI"
+        settings:
+          max_tokens: 1000
+          temperature: 0.7
+          api: "chat"
+      format_response:
+        type: "python"
+        file: "format_response.py"
+        function: "format_response"
+    
+  document_qa:
+    name: "Document Q&A Flow"
+    description: "Upload documents and ask questions using Promptflow document analysis"
+    flow_path: "promptflows/document_qa"
+    flow_file: "flow.dag.yaml"
+    enabled: true
+    inputs:
+      - name: "question"
+        type: "string"
+        default: ""
+        required: true
+      - name: "document_content"
+        type: "string"
+        default: ""
+        required: true
+      - name: "chat_history"
+        type: "list"
+        default: []
+        required: false
+    outputs:
+      - name: "answer"
+        type: "string"
+        description: "Generated answer based on document"
+      - name: "relevance_score"
+        type: "string"
+        description: "Relevance score of the answer"
+      - name: "sources"
+        type: "string"
+        description: "Source citations from document"
+    nodes:
+      preprocess_document:
+        type: "python"
+        file: "preprocess_document.py"
+        function: "preprocess_document"
+      extract_context:
+        type: "python"
+        file: "extract_context.py"
+        function: "extract_context"
+      generate_answer:
+        type: "llm"
+        template: "qa_prompt.jinja2"
+        provider: "AzureOpenAI"
+        connection: "Default_AzureOpenAI"
+        settings:
+          max_tokens: 1500
+          temperature: 0.3
+          api: "chat"
+      calculate_relevance:
+        type: "python"
+        file: "calculate_relevance.py"
+        function: "calculate_relevance"
+      extract_sources:
+        type: "python"
+        file: "extract_sources.py"
+        function: "extract_sources"
+
+# Connection configurations
+connections:
+  Default_AzureOpenAI:
+    type: "AzureOpenAI"
+    api_base: "${AZURE_OPENAI_ENDPOINT}"
+    api_key: "${AZURE_OPENAI_API_KEY}"
+    api_version: "${AZURE_OPENAI_API_VERSION}"
+    deployment_name: "${AZURE_OPENAI_DEPLOYMENT_NAME}"
+
+# Flow execution settings
+execution:
+  max_parallel_runs: 5
+  timeout_seconds: 300
+  retry_attempts: 3
+  enable_logging: true
+  log_level: "INFO"
+
+# File upload settings for document flows
+file_upload:
+  max_file_size_mb: 10
+  allowed_extensions:
+    - ".txt"
+    - ".pdf"
+    - ".docx"
+    - ".md"
+    - ".json"
+  supported_encodings:
+    - "utf-8"
+    - "ascii"
+    - "latin-1" 

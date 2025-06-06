@@ -1,0 +1,12 @@
+chainlit>=2.5.0
+openai>=1.84.0
+python-dotenv>=1.0.0
+asyncpg>=0.30.0
+SQLAlchemy>=2.0.40
+psycopg2-binary>=2.9.10
+greenlet>=3.2.0
+promptflow-azure>=1.18.0
+promptflow[azure]>=1.17.0
+azure-ai-ml>=1.21.0
+azure-identity>=1.19.0
+PyPDF2>=3.0.0

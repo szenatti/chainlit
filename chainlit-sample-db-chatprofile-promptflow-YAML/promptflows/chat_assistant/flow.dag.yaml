@@ -1,0 +1,54 @@
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/Flow.schema.json
+environment:
+  python_requirements_txt: requirements.txt
+inputs:
+  chat_history:
+    type: list
+    default: []
+  question:
+    type: string
+    default: ""
+  profile_name:
+    type: string
+    default: "Assistant"
+outputs:
+  answer:
+    type: string
+    reference: ${llm_response.output}
+  citations:
+    type: string
+    reference: ${format_response.output}
+nodes:
+- name: prepare_prompt
+  type: python
+  source:
+    type: code
+    path: prepare_prompt.py
+  inputs:
+    chat_history: ${inputs.chat_history}
+    question: ${inputs.question}
+    profile_name: ${inputs.profile_name}
+  use_variants: false
+- name: llm_response
+  type: llm
+  source:
+    type: code
+    path: llm_prompt.jinja2
+  inputs:
+    max_tokens: 1000
+    temperature: 0.7
+    system_message: ${prepare_prompt.system_prompt}
+    user_message: ${prepare_prompt.user_message}
+  provider: AzureOpenAI
+  connection: Default_AzureOpenAI
+  api: chat
+  use_variants: false
+- name: format_response
+  type: python
+  source:
+    type: code
+    path: format_response.py
+  inputs:
+    llm_output: ${llm_response.output}
+    profile_name: ${inputs.profile_name}
+  use_variants: false 
