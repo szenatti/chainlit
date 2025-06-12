@@ -1,5 +1,84 @@
 # Dynamic Chainlit Configuration System
 
+## 🚀 Quick Start (5 Minutes)
+
+### Step 1: Setup Environment
+```bash
+cd chainlit-sample-db-chatprofile-promptflow-YAML
+cp .env.example .env
+```
+
+### Step 2: Configure Credentials
+Edit the generated `.env` file:
+```bash
+AZURE_OPENAI_API_KEY=your_key_here
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+AZURE_OPENAI_DEPLOYMENT_NAME=your_deployment_name
+AZURE_OPENAI_API_VERSION=2023-07-01-preview
+```
+
+### Step 3: Install Dependencies
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Step 4: Start Database (Optional)
+```bash
+# Start PostgreSQL with Docker
+docker-compose up -d postgres
+# Or use the convenience script
+./run.sh  # macOS/Linux
+# run-local.bat  # Windows
+```
+
+### Step 5: Start Application
+```bash
+chainlit run app_dynamic.py
+# Or with custom port:
+chainlit run app_dynamic.py --port 8000
+```
+
+### Step 6: Test Features
+1. **Login**: Use `admin/admin123` or `user/user123` or `demo/demo123`
+2. **Basic Chat**: Try "Assistant" profile
+3. **Enhanced Chat**: Try "PromptFlow-Assistant" profile  
+4. **Document Q&A**: Select "Document-QA" profile, upload a document and ask questions
+5. **Role-Based Access**: Login as admin to see Technical and Business profiles
+
+### 🎯 What You Get
+- ✅ **7 Chat Profiles**: Assistant, Creative, Analytical, Technical, Business + Promptflow profiles
+- ✅ **YAML Configuration**: All profiles defined in `config/profiles.yaml`
+- ✅ **Role-Based Access**: Admin vs user permissions via `config/auth.yaml`
+- ✅ **Persistent Chat**: All conversations saved to database
+- ✅ **File Upload**: Document analysis with citations
+- ✅ **Dynamic Configuration**: Add new profiles without code changes
+
+### 🔧 Quick Troubleshooting
+
+**Configuration validation:**
+```bash
+python config/config_validator.py
+```
+
+**Database issues:**
+```bash
+docker-compose up -d postgres
+```
+
+**Missing dependencies:**
+```bash
+pip install promptflow-azure promptflow[azure] azure-ai-ml azure-identity
+```
+
+**Test configuration loading:**
+```bash
+python -c "from config.config_loader import get_config_loader; print('✅ Configuration loaded successfully')"
+```
+
+---
+
 A powerful, YAML-driven configuration system that makes your Chainlit application completely data-driven and reusable across multiple use cases without code duplication.
 
 ## 🎯 Overview
