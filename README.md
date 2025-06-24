@@ -1,10 +1,10 @@
 # Chainlit Solutions Collection
 
-A comprehensive collection of **5 progressive Chainlit applications** showcasing different levels of complexity and features, from basic chat to enterprise-ready solutions with dynamic configuration systems.
+A comprehensive collection of **6 progressive Chainlit applications** showcasing different levels of complexity and features, from basic chat to enterprise-ready solutions with advanced document search and dynamic configuration systems.
 
 ## 🎯 Overview
 
-This repository demonstrates the evolution of Chainlit applications, starting from a simple chat interface and progressing to sophisticated, enterprise-ready solutions with advanced features like authentication, database persistence, chat profiles, AI workflows, and dynamic YAML-driven configurations.
+This repository demonstrates the evolution of Chainlit applications, starting from a simple chat interface and progressing to sophisticated, enterprise-ready solutions with advanced features like authentication, database persistence, chat profiles, AI workflows, intelligent document search, and dynamic YAML-driven configurations.
 
 ## 📁 Solutions Overview
 
@@ -100,6 +100,36 @@ The most advanced solution featuring a **complete YAML-based configuration syste
 
 **Best for:** Enterprise solutions, multi-tenant applications, rapid deployment, maintenance-free scaling
 
+---
+
+### 6. [🔍 Azure AI Search Assistant](./chainlit-sample-azure-ai-search/)
+**🌟 Intelligent Document Search & Enterprise Security**
+
+A production-ready Azure AI Search integration with enterprise-grade authentication, in-app document viewers, and seamless citation system.
+
+**🚀 Advanced Features:**
+- ✅ **Azure AI Search Integration** - Intelligent document retrieval with semantic/hybrid search
+- ✅ **Enterprise Authentication** - Service Principal, Storage Account Key, and Managed Identity support
+- ✅ **Smart Citation System** - Token-embedded URLs for secure document access
+- ✅ **Advanced Document Viewers:**
+  - PDF viewer with page navigation, zoom, print
+  - Word documents rendered as formatted HTML
+  - Excel/CSV interactive tables with sorting
+  - Markdown formatted text with syntax highlighting
+  - Images & videos with native preview
+  - 10+ file types supported
+- ✅ **Folder Structure Support** - Handles nested blob storage organization
+- ✅ **Dual Architecture Options:**
+  - Simple Chainlit app for development
+  - Full FastAPI + Chainlit integration for production
+- ✅ **Production-Ready Security:**
+  - JWT-based API authentication
+  - Document-level authorization
+  - Range request support for large files
+  - Comprehensive audit logging
+
+**Best for:** Knowledge base applications, document search systems, enterprise deployments requiring secure document access with advanced viewers
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -115,6 +145,7 @@ The most advanced solution featuring a **complete YAML-based configuration syste
    - **Multiple AI types**: Use [chainlit-sample-db-chatprofile](./chainlit-sample-db-chatprofile/)
    - **Enterprise features**: Go with [chainlit-sample-db-chatprofile-promptflow](./chainlit-sample-db-chatprofile-promptflow/)
    - **Maximum flexibility**: Choose [chainlit-sample-db-chatprofile-promptflow-YAML](./chainlit-sample-db-chatprofile-promptflow-YAML/)
+   - **Document search & enterprise security**: Use [chainlit-sample-azure-ai-search](./chainlit-sample-azure-ai-search/)
 
 2. **Navigate to the chosen solution directory**
 3. **Follow the specific README** in that directory
@@ -123,19 +154,23 @@ The most advanced solution featuring a **complete YAML-based configuration syste
 
 ## 📊 Feature Comparison Matrix
 
-| Feature | Basic | +Database | +Profiles | +Promptflow | +YAML Config |
-|---------|-------|-----------|-----------|-------------|-------------|
-| **Basic Chat** | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Authentication** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Chat History** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Human Feedback** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Database Integration** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Multiple AI Profiles** | ❌ | ❌ | ✅ | ✅ | ✅ |
-| **Role-Based Access** | ❌ | ❌ | ✅ | ✅ | ✅ |
-| **Document Q&A** | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **Promptflow Integration** | ❌ | ❌ | ❌ | ✅ | ✅ |
-| **YAML Configuration** | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Zero-Code Scaling** | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Feature | Basic | +Database | +Profiles | +Promptflow | +YAML Config | +AI Search |
+|---------|-------|-----------|-----------|-------------|-------------|------------|
+| **Basic Chat** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Authentication** | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Chat History** | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Human Feedback** | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Database Integration** | ❌ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Multiple AI Profiles** | ❌ | ❌ | ✅ | ✅ | ✅ | ❌ |
+| **Role-Based Access** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| **Document Q&A** | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ |
+| **Promptflow Integration** | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
+| **YAML Configuration** | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Zero-Code Scaling** | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
+| **Azure AI Search** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Document Viewers** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Enterprise Security** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| **Citation System** | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
 
 ## 🎯 Use Case Recommendations
 
@@ -155,6 +190,10 @@ The most advanced solution featuring a **complete YAML-based configuration syste
 - **Recommended:** [chainlit-sample-db-chatprofile-promptflow](./chainlit-sample-db-chatprofile-promptflow/)
 - **Benefits:** Document Q&A, advanced AI workflows, citation tracking
 
+### 🏢 **Knowledge Base & Document Search**
+- **Recommended:** [chainlit-sample-azure-ai-search](./chainlit-sample-azure-ai-search/)
+- **Benefits:** Intelligent search, secure document access, enterprise authentication, in-app viewers
+
 ## 🛠️ Technical Architecture
 
 ### Progressive Complexity
@@ -163,6 +202,7 @@ The most advanced solution featuring a **complete YAML-based configuration syste
 3. **+Profiles** → Adds multiple AI personalities, role-based access
 4. **+Promptflow** → Adds Azure Promptflow, document analysis
 5. **+YAML Config** → Adds dynamic configuration system
+6. **+AI Search** → Adds Azure AI Search, enterprise security, document viewers
 
 ### Common Technologies
 - **Frontend:** Chainlit (Python-based web interface)
@@ -172,6 +212,8 @@ The most advanced solution featuring a **complete YAML-based configuration syste
 - **Deployment:** Docker & Docker Compose
 - **Advanced AI:** Azure Promptflow (solutions 4-5)
 - **Configuration:** YAML-based (solution 5)
+- **Search & Storage:** Azure AI Search + Azure Blob Storage (solution 6)
+- **Security:** JWT authentication, Service Principal, Managed Identity (solution 6)
 
 ## 🔧 Development & Deployment
 

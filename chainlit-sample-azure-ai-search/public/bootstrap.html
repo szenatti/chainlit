@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document Integration Bootstrap</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            height: 1px; 
+            overflow: hidden; 
+            visibility: hidden; 
+        }
+    </style>
+</head>
+<body>
+    <!-- Bootstrap script for document integration -->
+    <script>
+        // Load auth integration script
+        (function() {
+            function loadScript(src, callback) {
+                if (document.querySelector(`script[src*="${src}"]`)) {
+                    if (callback) callback();
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = callback;
+                script.onerror = function() {
+                    console.error('Failed to load script:', src);
+                };
+                document.head.appendChild(script);
+            }
+
+            // Try different possible paths for the scripts
+            const possiblePaths = [
+                '/public/auth-integration.js',
+                'http://localhost:8000/public/auth-integration.js',
+                './public/auth-integration.js'
+            ];
+
+            let scriptLoaded = false;
+            possiblePaths.forEach(path => {
+                if (!scriptLoaded) {
+                    loadScript(path, function() {
+                        scriptLoaded = true;
+                        console.log('Document integration loaded successfully');
+                    });
+                }
+            });
+
+            // Also inject into parent if this is in an iframe
+            if (window.parent && window.parent !== window) {
+                try {
+                    window.parent.postMessage({
+                        type: 'chainlit-integration-ready',
+                        action: 'load-scripts'
+                    }, '*');
+                } catch (e) {
+                    console.log('Could not communicate with parent frame');
+                }
+            }
+        })();
+    </script>
+</body>
+</html> 
